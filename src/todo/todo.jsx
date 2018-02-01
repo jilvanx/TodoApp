@@ -7,23 +7,30 @@ import TodoList from './todoList'
 
 export default class Todo extends Component {
 
+    // Todo(description, done, dueDate) {
+    //     this.description = description;
+    //     this.dueDate = dueDate;
+    //     this.done = false;
+    // }
+
     constructor(props){
         super(props)
 
         //estado inicial do objeto
-        let todos = JSON.parse(localStorage.getItem('todos'));
-        this.state = { description: '', list: todos }
+        let todos = JSON.parse(localStorage.getItem('todos'))
+        this.state = { description: '', done: false, dueDate: JSON.stringify(new Date()), list: todos }
 
         this.handleChange = this.handleChange.bind(this)
         this.handleAdd = this.handleAdd.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
+        this.handleMarkAsDone = this.handleMarkAsDone.bind(this)
 
     }
 
     refresh() {
 
         this.setState({
-            ...this.state, description: '', list: JSON.parse(localStorage.getItem('todos'))
+            ...this.state, description: '', done: false, dueDate: JSON.stringify(new Date()), list: JSON.parse(localStorage.getItem('todos'))
         })
 
     }
@@ -34,30 +41,48 @@ export default class Todo extends Component {
 
     handleAdd() {
 
-        const description = this.state.description
+        let todo = {description: this.state.description, done: this.state.done, dueDate: this.state.dueDate}
 
         if(localStorage.getItem('todos') == null) {
             var todos = []
-            todos.push(description)
-            localStorage.setItem('todos', JSON.stringify(todos));
+            todos.push(todo)
+            localStorage.setItem('todos', JSON.stringify(todos))
         } else {
-            var todos = JSON.parse(localStorage.getItem('todos'));
-            todos.push(description)
-            localStorage.setItem('todos', JSON.stringify(todos));
+            var todos = JSON.parse(localStorage.getItem('todos'))
+            todos.push(todo)
+            localStorage.setItem('todos', JSON.stringify(todos))
         }
 
         this.refresh()
 
+        // let todos = []
+        // let todo = {description: this.state.description, done: this.state.done, dueDate: this.state.dueDate}
+        // todos.push(todo)
+        // console.log(todos)
+        // localStorage.setItem('todos', JSON.stringify(todos))
+        // this.refresh()
+
     }
 
     handleDelete(index) {
-        var todos = JSON.parse(localStorage.getItem('todos'));
-        todos.splice(index, 1)
 
-        console.log(todos)
+        let todo = JSON.parse(localStorage.getItem('todos'))
+        todo.splice(index, 1)
+        localStorage.setItem('todos', JSON.stringify(todo))
 
         this.refresh();
 
+    }
+
+    handleMarkAsDone(index){
+
+        let todo = JSON.parse(localStorage.getItem('todos'))
+        todo['done'] = true;
+        localStorage.setItem('todos', JSON.stringify(todo));
+
+        console.log(todo);
+
+        this.refresh();
     }
 
     render() {
@@ -67,11 +92,12 @@ export default class Todo extends Component {
                 <TodoForm
                     description={this.state.description}
                     handleChange={this.handleChange}
-                    handleAdd={this.handleAdd} 
+                    handleAdd={this.handleAdd}
                 />
                 <TodoList
                     list={this.state.list}
                     handleDelete={this.handleDelete}
+                    handleMarkAsDone={this.handleMarkAsDone}
                 />
             </div>
         )

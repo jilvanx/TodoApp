@@ -6,7 +6,7 @@ export default props => {
     const renderRows = () => {
 
         const list = props.list || []
-        
+
         // list.map(function (todo, index){
         //     return (
         //         <tr key={index}>
@@ -23,18 +23,28 @@ export default props => {
         // })
 
 
-        return list.map((description,index) => 
+        return list.map((todo, index) =>
             // console.log(index +  '-' + description)
 
             <tr key={index}>
-                <td>{description}</td>
+                <td>{todo.description}</td>
                 <td>
+                    <IconButton
+                        style='sucess'
+                        icon='check'
+                        onClick={() => props.handleMarkAsDone(index)}>
+                    </IconButton>
+                    <IconButton
+                        style='warning'
+                        icon='undo'
+                        onClick={() => props.handleMarkAsPending(index)}>
+                    </IconButton>
                     <IconButton
                         style='danger'
                         icon='trash-o'
                         onClick={() => props.handleDelete(index)}>
                     </IconButton>
-                </td>           
+                </td>
             </tr>
 
         )
