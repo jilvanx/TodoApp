@@ -1,21 +1,47 @@
 import React from "react"
+import IconButton from "../template/iconButton";
 
 export default props => {
 
     const renderRows = () => {
 
         const list = props.list || []
+        
+        // list.map(function (todo, index){
+        //     return (
+        //         <tr key={index}>
+        //             <td>{todo}</td>
+        //             <td>
+        //                 <IconButton
+        //                     style='danger'
+        //                     icon='trash-o'
+        //                     onClick={() => handleRemove(todo)}>
+        //                 </IconButton>
+        //             </td>
+        //         </tr>
+        //     );
+        // })
 
-        list.map(function (todo, index){
-            return (
-                <tr key={index}>
-                    <td>{todo.description}</td>
-                </tr>
-            );
-        })
+
+        return list.map((description,index) => 
+            // console.log(index +  '-' + description)
+
+            <tr key={index}>
+                <td>{description}</td>
+                <td>
+                    <IconButton
+                        style='danger'
+                        icon='trash-o'
+                        onClick={() => props.handleDelete(index)}>
+                    </IconButton>
+                </td>           
+            </tr>
+
+        )
+
 
         // return list.map(todo => (
-        //     <tr>
+        //     <tr >
         //         <td>{todo.description}</td>
         //     </tr>
         // ))
@@ -26,6 +52,7 @@ export default props => {
             <thead>
                 <tr>
                     <th>Descrição</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>

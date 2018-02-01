@@ -11,19 +11,16 @@ export default class Todo extends Component {
         super(props)
 
         //estado inicial do objeto
-        this.state = { description: '', list: [] }
+        let todos = JSON.parse(localStorage.getItem('todos'));
+        this.state = { description: '', list: todos }
 
         this.handleChange = this.handleChange.bind(this)
         this.handleAdd = this.handleAdd.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
+
     }
 
     refresh() {
-
-        // var todos = this.props.list;
-        // console.log(JSON.stringify(todos))
-
-        // localStorage.setItem('todos', JSON.stringify(todos));
-        // this.setState({ list: todos });
 
         this.setState({
             ...this.state, description: '', list: JSON.parse(localStorage.getItem('todos'))
@@ -35,7 +32,7 @@ export default class Todo extends Component {
         this.setState({...this.state, description: e.target.value })
     }
 
-    handleAdd(){
+    handleAdd() {
 
         const description = this.state.description
 
@@ -49,10 +46,17 @@ export default class Todo extends Component {
             localStorage.setItem('todos', JSON.stringify(todos));
         }
 
-        this.setState({
-            list: JSON.parse(localStorage.getItem('todos'))
-        })
+        this.refresh()
 
+    }
+
+    handleDelete(index) {
+        var todos = JSON.parse(localStorage.getItem('todos'));
+        todos.splice(index, 1)
+
+        console.log(todos)
+
+        this.refresh();
 
     }
 
@@ -63,8 +67,12 @@ export default class Todo extends Component {
                 <TodoForm
                     description={this.state.description}
                     handleChange={this.handleChange}
-                    handleAdd={this.handleAdd} />
-                <TodoList list={this.state.list} />
+                    handleAdd={this.handleAdd} 
+                />
+                <TodoList
+                    list={this.state.list}
+                    handleDelete={this.handleDelete}
+                />
             </div>
         )
     }
