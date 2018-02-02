@@ -7,40 +7,24 @@ export default props => {
 
         const list = props.list || []
 
-        // list.map(function (todo, index){
-        //     return (
-        //         <tr key={index}>
-        //             <td>{todo}</td>
-        //             <td>
-        //                 <IconButton
-        //                     style='danger'
-        //                     icon='trash-o'
-        //                     onClick={() => handleRemove(todo)}>
-        //                 </IconButton>
-        //             </td>
-        //         </tr>
-        //     );
-        // })
-
-
         return list.map((todo, index) =>
             // console.log(index +  '-' + description)
 
             <tr key={index}>
-                <td>{todo.description}</td>
+                <td className={todo.done ? 'markedAsDone' : ''}>{todo.description}</td>
                 <td>
                     <IconButton
-                        style='sucess'
+                        style='success' hide={todo.done}
                         icon='check'
-                        onClick={() => props.handleMarkAsDone(index)}>
+                        onClick={() => props.handleMarkAsDoneOrPending(todo, true)}>
                     </IconButton>
                     <IconButton
-                        style='warning'
+                        style='warning' hide={!todo.done}
                         icon='undo'
-                        onClick={() => props.handleMarkAsPending(index)}>
+                        onClick={() => props.handleMarkAsDoneOrPending(todo, false)}>
                     </IconButton>
                     <IconButton
-                        style='danger'
+                        style='danger' hide={!todo.done}
                         icon='trash-o'
                         onClick={() => props.handleDelete(index)}>
                     </IconButton>
@@ -50,11 +34,6 @@ export default props => {
         )
 
 
-        // return list.map(todo => (
-        //     <tr >
-        //         <td>{todo.description}</td>
-        //     </tr>
-        // ))
     }
 
     return (
@@ -62,7 +41,7 @@ export default props => {
             <thead>
                 <tr>
                     <th>Descrição</th>
-                    <th>Ações</th>
+                    <th className='tableActions'>Ações</th>
                 </tr>
             </thead>
             <tbody>
