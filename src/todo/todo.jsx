@@ -24,21 +24,30 @@ export default class Todo extends Component {
 
     }
 
+    startsWith(compareTo, value ) {
+        var startsWithRegExp = new RegExp('^' + compareTo);
+        return startsWithRegExp.test(value);
+    }
+
+
     refresh(description = '') {
 
-        const { value } = description
+        let filter, tbody, tr, td
 
-     
-        const cachedHits = localStorage.getItem(value);
+        filter = description.toUpperCase()
+        tbody = document.getElementById("tbodySearch")
 
-        console.log(cachedHits)
+        tr = tbody.getElementsByTagName('tr');
 
-        // if (cachedHits) {
-        //     this.setState({ hits: JSON.parse(cachedHits) });
-        //     return;
-        // }
-
-
+        // Loop through all list items, and hide those who don't match the search query
+        for (let i = 0; i < tr.length; i++) {
+            td = tr[i].textContent
+            if (td.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
 
         this.setState({
             ...this.state, id: 0, description, done: false, dueDate: JSON.stringify(new Date()), list: JSON.parse(localStorage.getItem('todos'))
@@ -49,14 +58,14 @@ export default class Todo extends Component {
     getIdTodo(todos){
 
         let jsonText = localStorage.getItem('todos')
-        let data = JSON.parse(jsonText)        
+        let data = JSON.parse(jsonText)
 
         let maxId = 0
         for (let prop in data) {
             if (data[prop].id > maxId)
                 maxId = data[prop].id
         }
-        
+
         return maxId+1
 
     }
@@ -72,11 +81,11 @@ export default class Todo extends Component {
     handleChange(e) {
         this.setState({...this.state, description: e.target.value })
     }
-    
+
 
     handleAdd() {
 
-        if(localStorage.getItem('todos') == null) {            
+        if(localStorage.getItem('todos') == null) {
             var todos = []
             //autoincremento
             var id = 1
@@ -107,18 +116,18 @@ export default class Todo extends Component {
     handleMarkAsDoneOrPending(todo, value){
 
         let jsonText = localStorage.getItem('todos')
-        let data = JSON.parse(jsonText)        
+        let data = JSON.parse(jsonText)
 
         //Verifica qual o objeto para alterar
         for (let prop in data) {
             if (data[prop].id == todo.id)
                 data[prop].done = value
         }
-        
+
         //Salva
         localStorage.setItem('todos', JSON.stringify(data))
 
-        this.refresh();
+        this.refresh(this.state.description);
     }
 
     render() {

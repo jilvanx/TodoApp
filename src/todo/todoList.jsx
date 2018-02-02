@@ -44,7 +44,7 @@ export default props => {
                     <th className='tableActions'>Ações</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id='tbodySearch'>
                 {renderRows()}
             </tbody>
         </table>
