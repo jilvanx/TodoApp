@@ -24,12 +24,6 @@ export default class Todo extends Component {
 
     }
 
-    startsWith(compareTo, value ) {
-        var startsWithRegExp = new RegExp('^' + compareTo);
-        return startsWithRegExp.test(value);
-    }
-
-
     refresh(description = '') {
 
         let filter, tbody, tr, td
@@ -37,15 +31,15 @@ export default class Todo extends Component {
         filter = description.toUpperCase()
         tbody = document.getElementById("tbodySearch")
 
-        tr = tbody.getElementsByTagName('tr');
+        tr = tbody.getElementsByTagName('tr')
 
         // Loop through all list items, and hide those who don't match the search query
         for (let i = 0; i < tr.length; i++) {
             td = tr[i].textContent
             if (td.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
+                tr[i].style.display = ""
             } else {
-                tr[i].style.display = "none";
+                tr[i].style.display = "none"
             }
         }
 
