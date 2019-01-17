@@ -12,7 +12,7 @@ export default props => {
 
             <tr key={index}>
                 <td className={todo.done ? 'markedAsDone' : ''}>{todo.description}</td>
-                <td>
+                <td className="buttons-table">
                     <IconButton
                         style='success' hide={todo.done}
                         icon='check'

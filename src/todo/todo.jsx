@@ -7,7 +7,7 @@ import TodoList from './todoList'
 
 export default class Todo extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
 
         //estado inicial do objeto
@@ -49,7 +49,7 @@ export default class Todo extends Component {
 
     }
 
-    getIdTodo(todos){
+    getIdTodo(todos) {
 
         let jsonText = localStorage.getItem('todos')
         let data = JSON.parse(jsonText)
@@ -60,26 +60,26 @@ export default class Todo extends Component {
                 maxId = data[prop].id
         }
 
-        return maxId+1
+        return maxId + 1
 
     }
 
-    handleSearch(){
+    handleSearch() {
         this.refresh(this.state.description)
     }
 
-    handleClear(){
+    handleClear() {
         this.refresh()
     }
 
     handleChange(e) {
-        this.setState({...this.state, description: e.target.value })
+        this.setState({ ...this.state, description: e.target.value })
     }
 
 
     handleAdd() {
 
-        if(localStorage.getItem('todos') == null) {
+        if (localStorage.getItem('todos') == null) {
             var todos = []
             //autoincremento
             var id = 1
@@ -89,7 +89,7 @@ export default class Todo extends Component {
             var id = this.getIdTodo(todos)
         }
 
-        let todo = {id: id, description: this.state.description, done: this.state.done, dueDate: this.state.dueDate}
+        let todo = { id: id, description: this.state.description, done: this.state.done, dueDate: this.state.dueDate }
         todos.push(todo)
         localStorage.setItem('todos', JSON.stringify(todos))
 
@@ -107,7 +107,7 @@ export default class Todo extends Component {
 
     }
 
-    handleMarkAsDoneOrPending(todo, value){
+    handleMarkAsDoneOrPending(todo, value) {
 
         let jsonText = localStorage.getItem('todos')
         let data = JSON.parse(jsonText)
@@ -127,7 +127,7 @@ export default class Todo extends Component {
     render() {
         return (
             <div>
-                <PageHeader name='Tarefas' small='Cadastro'></PageHeader>
+                <PageHeader name='Tarefas' small='CRUD'></PageHeader>
                 <TodoForm
                     description={this.state.description}
                     handleChange={this.handleChange}

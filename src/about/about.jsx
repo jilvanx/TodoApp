@@ -4,9 +4,10 @@ import PageHeader from '../template/pageHeader'
 
 export default props => (
     <div>
-        <PageHeader name='Sobre' small='jilvanx'></PageHeader>
-
-        <h3>Software Developer</h3>
-        <p><a href="http://jilvanx.com">jilvanx.com</a></p>
+        <PageHeader name='Sobre' small='TodoApp'></PageHeader>
+        <div className="container">
+            <p><a href="http://jilvanx.com">jilvanx.com</a></p>
+            <h3>Front-end Developer</h3>
+        </div>
     </div>
 )

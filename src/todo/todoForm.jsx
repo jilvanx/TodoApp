@@ -13,7 +13,7 @@ export default props => {
 
     return (
         <div role='form' className='todoForm'>
-            <Grid cols='12 9 10'>
+            <Grid cols='4 8 10 12'>
                 <input id='description' className='form-control'
                     placeholder='Adicione uma tarefa'
                     onChange={props.handleChange}
@@ -21,9 +21,11 @@ export default props => {
                     value={props.description}></input>
             </Grid>
             <Grid cols='12 3 2'>
-                <IconButton style='primary' icon='plus' onClick={props.handleAdd}></IconButton>
-                <IconButton style='info' icon='search' onClick={props.handleSearch}></IconButton>
-                <IconButton style='default' icon='close' onClick={props.handleClear}></IconButton>
+                <div className="buttonsForm">
+                    <IconButton style='primary' icon='plus' onClick={props.handleAdd}></IconButton>
+                    <IconButton style='info' icon='search' onClick={props.handleSearch}></IconButton>
+                    <IconButton style='default' icon='close' onClick={props.handleClear}></IconButton>
+                </div>
             </Grid>
         </div>
     )

@@ -17,7 +17,7 @@ module.exports = {
             modules: __dirname + '/node_modules'
         }
     },
-    plugins: [ 
+    plugins: [
         new ExtractTextPlugin('app.css')
     ],
     module: {
@@ -26,7 +26,7 @@ module.exports = {
             loader: 'babel-loader',
             exclude: /node_modules/,
             query: {
-                presets: ['es2015', 'react'],
+                presets: ['env', 'react'],
                 plugins: ['transform-object-rest-spread']
             }
         }, {

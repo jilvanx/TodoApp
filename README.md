@@ -1,8 +1,13 @@
 # TodoApp
+Task annotation application (todo list) using the react library with components.
 
-Aplicação de anotação de tarefas (to do list) utilizando a biblioteca React​
+##  Install
+- git clone https://github.com/jilvanx/TodoApp.git
+- npm install
+- npm run dev
+- http://localhost:8080/
 
-## Teclas de atalho:
-- Enter: Adiciona a tarefa
-- Shift+Enter: Pesquisa a tarefa
-- Esc: Limpa a pesquisa
+### Hot keys:
+- Enter: Add task
+- Shift+Enter: Search task
+- Esc: Clean search
